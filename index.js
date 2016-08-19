@@ -10,6 +10,7 @@
 
   const defaultConfig = {
     path: '/status',
+    title: 'Express Status',
     spans: [{
       interval: 1,
       retention: 60
