@@ -76,6 +76,11 @@
       config.spans = defaultConfig.spans;
     }
 
+    let renderedHtml;
+    fs.readFile(path.join(__dirname, '/index.html'), function(err, html){
+      renderedHtml = html.toString().replace(/{{title}}/g, config.title);
+    });
+
     return (req, res, next) => {
       if (io === null || io === undefined) {
         
@@ -95,7 +100,7 @@
 
       const startTime = process.hrtime();
       if (req.path === config.path) {
-        res.sendFile(path.join(__dirname + '/index.html'));
+        res.send(renderedHtml);
       } else {
         onHeaders(res, () => {
           const diff = process.hrtime(startTime);
